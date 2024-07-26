@@ -1,0 +1,37 @@
+#lancaster Stemmer
+from nltk.stem import PorterStemmer
+from nltk.stem import LancasterStemmer
+porter = PorterStemmer()
+lancaster=LancasterStemmer()
+#proide a word to be stemmed
+print("Porter Stemmer")
+print(porter.stem("cats"))
+print(porter.stem("trouble"))
+print(porter.stem("troubling"))
+print(porter.stem("troubled"))
+print("Lancaster Stemmer")
+print(lancaster.stem("cats"))
+print(lancaster.stem("trouble"))
+print(lancaster.stem("troubling"))
+print(lancaster.stem("troubled"))
+
+#Porter Stemmer
+import nltk
+from nltk.stem.porter import PorterStemmer
+# Download the 'punkt' resource 
+nltk.download('punkt')
+porter_stemmer = PorterStemmer()
+word_data = "It originated from the idea that there are readers who prefer learning new skills from the comforts of their drawing rooms"
+# First Word tokenization
+nltk_tokens = nltk.word_tokenize(word_data)
+#Next find the roots of the word
+for w in nltk_tokens:
+  print("Actual:%s Stem:%s" %(w,porter_stemmer.stem(w)))
+
+#Lemmatizer
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+print("rocks:", lemmatizer.lemmatize("rocks"))
+print("corpora:", lemmatizer.lemmatize("corpora"))
+# a denotes adjective in "pos"
+print("better :", lemmatizer.lemmatize("better",pos="a"))
