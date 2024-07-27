@@ -1,0 +1,65 @@
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+from nltk.tokenize import word_tokenize,sent_tokenize
+from nltk.corpus import stopwords
+text ="""Junk foods taste good that’s why it is mostly liked by everyone of any
+age group especially kids and school going children. They generally ask for the junk
+food daily because they have been trend so by their parents from the childhood. They
+never have been discussed by their parents about the harmful effects of junk foods over
+health. According to the research by scientists, it has been found that junk foods have
+negative effects on the health in many ways. They are generally fried food found in the
+market in the packets. They become high in calories, high in cholesterol, low in healthy
+nutrients, high in sodium mineral, high in sugar, starch, unhealthy fat, lack of protein
+and lack of dietary fibers. Processed and junk foods are the means of rapid and
+unhealthy weight gain and negatively impact the whole body throughout the life. It
+makes able a person to gain excessive weight which is called as obesity. Junk foods
+tastes good and looks good however do not fulfil the healthy calorie requirement of the
+body. Some of the foods like french fries, fried foods, pizza, burgers, candy, soft
+drinks, baked goods, ice cream, cookies, etc are the example of high-sugar and high-fat
+containing foods. It is found according to the Centres for Disease Control and
+Prevention that Kids and children eating junk food are more prone to the type-2
+diabetes. In type-2 diabetes our body become unable to regulate blood sugar level. Risk
+of getting this disease is increasing as one become more obese or overweight. It
+increases the risk of kidney failure. Eating junk food daily lead us to the nutritional
+deficiencies in the body because it is lack of essential nutrients, vitamins, iron, minerals
+and dietary fibers. It increases risk of cardiovascular diseases because it is rich in
+saturated fat, sodium and bad cholesterol. High sodium and bad cholesterol diet
+increases blood pressure and overloads the heart functioning. One who like junk food
+develop more risk to put on extra weight and become fatter and unhealthier. Junk foods
+contain high level carbohydrate which spike blood sugar level and make person more
+lethargic, sleepy and less active and alert. Reflexes and senses of the people eating this
+food become dull day by day thus they live more sedentary life. Junk foods are the
+source of constipation and other disease like diabetes, heart ailments, clogged arteries,
+heart attack, strokes, etc because of being poor in nutrition. 
+"""
+words= word_tokenize(text)
+sents = sent_tokenize(text)
+stopwords = set(stopwords.words('english'))
+
+freqTable = dict()
+for word in words:
+  word = word.lower()
+  if word in stopwords:
+    continue
+  elif word in freqTable:
+      freqTable[word] += 1
+  else:
+    freqTable[word] = 1
+sentValue = dict()
+for sentence in sents:
+  for word,freq in freqTable.items():
+    if word in sentence.lower():
+      if sentence in sentValue:
+        sentValue[sentence] += freq
+      else:
+          sentValue[sentence] = freq
+sumValues = 0
+for s in sentValue:
+  sumValues += sentValue[s]
+avg = int(sumValues/len(sents))
+summary = ''
+for sent in sents:
+  if (sent in sentValue) and (sentValue[sent]>1.2*avg): 
+    summary+=''+sent
+    print(summary)
